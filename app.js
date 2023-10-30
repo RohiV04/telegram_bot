@@ -43,6 +43,20 @@ bot.onText(/\/help/, (msg) => {
   });
 });
 
+const language = [
+  ["English", "Hindi"],
+  ["Telugu", "Tamil"],
+  ["Kannada", "Malayalam"],
+];
+//translate one language to another the msg given by the user
+bot.onText(/\/translate/, (msg) => {
+  bot.sendMessage(msg.chat.id, "Welcome", {
+    reply_markup: {
+      keyboard: language,
+    },
+  });
+});
+
 //send a photo
 bot.onText(/\/pic/, (msg) => {
   bot.sendPhoto(msg.chat.id, "https://www.7movierulz.so/poster/tiger-nageswara-rao-2023-dvdscr-telugu-full-movie-watch-online-free.jpg");
