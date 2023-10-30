@@ -68,7 +68,6 @@ const translate = (bot) => {
                 }
             });
         } else {
-            bot.sendMessage(chatId, "Please select a language");
             bot.sendMessage(msg.chat.id, "Select the language", {
                 reply_markup: {
                     keyboard: languageOptions,

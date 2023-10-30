@@ -10,7 +10,15 @@ const token = "6729574087:AAEfsxp8trqnN5VOBOJcvTm-7nJhyxO64Lo";
 const bot = new TelegramBot(token, { polling: true });
 
 bot.onText(/\/start/, (msg) => {
-  bot.sendMessage(msg.chat.id, "Welcome");
+  bot.sendMessage(msg.chat.id, "Welcome",
+    {
+      "reply_markup": {
+        "keyboard": [["/translate"]],
+        "one_time_keyboard": true
+      }
+    }
+  );
+
 });
 
 translate(bot);
