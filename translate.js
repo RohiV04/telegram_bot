@@ -5,6 +5,9 @@ const translate = (bot) => {
     ["English", "Spanish", "French", "German"],
     ["Italian", "Russian", "Japanese", "Chinese"],
     ["Korean", "Arabic", "Hindi", "Turkish"],
+    ["Malayalam", "Tamil", "Telugu", "Kannada"],
+    ["Marathi", "Gujarati", "Bengali", "Urdu"],
+    ["Punjabi", "Nepali"],
   ];
 
   // Dictionary to map language options to their corresponding codes
@@ -69,7 +72,7 @@ const translate = (bot) => {
     const chatId = msg.chat.id;
 
     // Check if the message is a language selection
-    if (msg.text in languageCodes===true) {
+    if (msg.text in languageCodes === true) {
       bot.sendMessage(chatId, "Enter the text to translate");
       const languageId = languageCodes[msg.text];
       // Translate the text
