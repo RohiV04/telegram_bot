@@ -96,7 +96,7 @@ const translate = (bot) => {
           const response = await axios.request(options);
           console.log(response.data);
           const translatedText = response.data.data.translatedText;
-          bot.sendMessage(chatId, `<i>Translated Text   </i>  <b>${translatedText}</b>`);
+          bot.sendMessage(chatId, `Translated Text    ${translatedText}`);
         } catch (error) {
           console.error(error);
           bot.sendMessage(chatId, "Error translating text");
