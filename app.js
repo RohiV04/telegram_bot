@@ -13,8 +13,7 @@ bot.onText(/\/start/, (msg) => {
   bot.sendMessage(msg.chat.id, "Welcome");
 });
 
-
-app.use(translate(bot));
+translate(bot);
 // // Matches "/echo [whatever]"
 // bot.onText(/\/echo (.+)/, (msg, match) => {
 //   // 'msg' is the received Message from Telegram
