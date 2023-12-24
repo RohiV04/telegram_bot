@@ -1,4 +1,4 @@
-const axios = require("axios");
+import axios from "axios";
 
 const languageOptions = [
   ["English", "Spanish", "French", "German"],
@@ -9,55 +9,30 @@ const languageOptions = [
   ["Punjabi", "Nepali"],
 ];
 
-  // Dictionary to map language options to their corresponding codes
-  const languageCodes = {
-    English: "en",
-    Spanish: "es",
-    French: "fr",
-    German: "de",
-    Italian: "it",
-    Russian: "ru",
-    Japanese: "ja",
-    Chinese: "zh",
-    Korean: "ko",
-    Arabic: "ar",
-    Hindi: "hi",
-    Turkish: "tr",
-    Malayalam: "ml",
-    Tamil: "ta",
-    Telugu: "te",
-    Kannada: "kn",
-    Marathi: "mr",
-    Gujarati: "gu",
-    Bengali: "bn",
-    Urdu: "ur",
-    Punjabi: "pa",
-    Nepali: "ne",
-    // Sinhala: "si",
-    // Filipino: "fil",
-    // Indonesian: "id",
-    // Vietnamese: "vi",
-    // Thai: "th",
-    // Polish: "pl",
-    // Romanian: "ro",
-    // Dutch: "nl",
-    // Swedish: "sv",
-    // Finnish: "fi",
-    // Norwegian: "no",
-    // Danish: "da",
-    // Greek: "el",
-    // Czech: "cs",
-    // Slovak: "sk",
-    // Ukrainian: "uk",
-    // Hungarian: "hu",
-    // Hebrew: "he",
-    // Persian: "fa",
-    // Afrikaans: "af",
-    // Swahili: "sw",
-    // Latin: "la",
-    // Esperanto: "eo",
-    // Catalan: "ca",
-  };
+const languageCodes = {
+  English: "en",
+  Spanish: "es",
+  French: "fr",
+  German: "de",
+  Italian: "it",
+  Russian: "ru",
+  Japanese: "ja",
+  Chinese: "zh",
+  Korean: "ko",
+  Arabic: "ar",
+  Hindi: "hi",
+  Turkish: "tr",
+  Malayalam: "ml",
+  Tamil: "ta",
+  Telugu: "te",
+  Kannada: "kn",
+  Marathi: "mr",
+  Gujarati: "gu",
+  Bengali: "bn",
+  Urdu: "ur",
+  Punjabi: "pa",
+  Nepali: "ne",
+};
 
 const sendLanguageSelectionMessage = (bot, chatId) => {
   bot.sendMessage(chatId, "Select the language", {
@@ -94,25 +69,25 @@ const translateText = async (bot, chatId, languageId, text) => {
   }
 };
 
+
+let selectedLanguage = {};
+
 const translate = (bot) => {
   bot.onText(/\/translate/, (msg) => {
-    setTimeout(() => sendLanguageSelectionMessage(bot, msg.chat.id), 1000);
+    const chatId = msg.chat.id;
+    selectedLanguage[chatId] = null; // Reset the selected language
+    setTimeout(() => sendLanguageSelectionMessage(bot, chatId), 1000);
   });
 
   bot.on("message", (msg) => {
     const chatId = msg.chat.id;
 
-    if (msg.text in languageCodes) {
+    if (selectedLanguage[chatId] === null && msg.text in languageCodes) {
+      selectedLanguage[chatId] = languageCodes[msg.text];
       bot.sendMessage(chatId, "Enter the text to translate");
-      const languageId = languageCodes[msg.text];
-
-      bot.once("message", (msg) => {
-        translateText(bot, chatId, languageId, msg.text);
-      });
-    } else {
-      sendLanguageSelectionMessage(bot, msg.chat.id);
+    } else if (selectedLanguage[chatId]) {
+      translateText(bot, chatId, selectedLanguage[chatId], msg.text);
     }
   });
 };
-
-module.exports = translate;
+export default translate;

@@ -1,8 +1,8 @@
-const express = require("express");
-const TelegramBot = require("node-telegram-bot-api");
+import express from "express";
+import TelegramBot from "node-telegram-bot-api";
 
 const app = express();
-const translate = require("./translate");
+import translate from "./translate.js";
 // replace the value below with the Telegram token you receive from @BotFather
 const token = "6729574087:AAEfsxp8trqnN5VOBOJcvTm-7nJhyxO64Lo";
 
